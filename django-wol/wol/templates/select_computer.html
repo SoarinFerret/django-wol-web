@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block header %}Remote Wake On Lan{% endblock %}
+
+{% block content %}
+<form method="POST" class="selectcomputer-form">
+    {% csrf_token %}
+    {{ form|crispy }}<br>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Wake up</button>
+    </div>
+</form>
+
+{% endblock %}

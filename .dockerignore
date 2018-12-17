@@ -1,0 +1,12 @@
+/django-wol/*.sqlite3
+/django-wol/*.sqlite3-journal
+/django-wol/static
+.git
+.gitignore
+readme.md
+.cache
+.tox
+.tx
+__pycache__
+*.pyc
+/django-wol/wol/migrations

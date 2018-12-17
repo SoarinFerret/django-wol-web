@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block header %}Results{% endblock %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script>
+    function sendPings(){
+        var txt = "";
+        x = 0;
+        for(i = 0; (i < 10 && x == 0); i++){
+            $.ajax({
+                url: '{% url "ping_computer" computer_pk=computer.pk %}',
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    if (data.ping_code){
+                        txt += "<div class=\"alert alert-danger\"> <strong>Failed!</strong> Failed to ping {{ computer.name }}</div>";
+                    }
+                    else{
+                        txt += "<div class=\"alert alert-success\"><strong>Success!</strong> {{ computer.name }} is up</div>";
+                        x = 1;
+                    }
+                }
+            });
+            document.getElementById("pingResults").innerHTML = txt;
+        }
+        document.getElementById("pingResults").innerHTML = txt;
+    }
+
+</script>
+<div class="alert alert-success" onload="sendPings()">
+    <strong>Success!</strong> Wake-on-Lan successfully sent to {{ computer.mac_addr }}
+</div>
+
+<p>Ping Results:</p>
+<div id="pingResults">
+</div>
+
+<script>sendPings();</script>
+{% endblock %}
